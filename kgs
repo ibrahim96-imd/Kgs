@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOITA GARDIENNAGE ET SURVEILLANCE</title>
+  <meta name="description" content="Entreprise de gardiennage, surveillance humaine et électronique, rondes et interventions 24/7." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0c1116;         /* fond */
+      --panel:#0f1621;      /* cartes */
+      --muted:#93a4b3;      /* texte secondaire */
+      --text:#e8eef5;       /* texte principal */
+      --brand:#3b82f6;      /* bleu principal */
+      --brand-2:#22c55e;    /* vert accent */
+      --warning:#f59e0b;    /* orange */
+      --danger:#ef4444;     /* rouge */
+      --ring: rgba(59,130,246,.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif; 
+      color:var(--text); background: radial-gradient(1200px 800px at 80% -10%, rgba(34,197,94,.12), transparent),
+                         radial-gradient(900px 600px at -10% 20%, rgba(59,130,246,.18), transparent),
+                         var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1120px; margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:24px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:14px 18px; border-radius:999px; font-weight:600; 
+         background:linear-gradient(135deg,var(--brand),#60a5fa); color:white; box-shadow:var(--shadow); border:1px solid rgba(255,255,255,.08)}
+    .btn:hover{transform:translateY(-1px); filter:saturate(1.1)}
+    .btn.secondary{background:transparent; border:1px solid rgba(255,255,255,.18)}
+    .chip{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; font-size:12px; background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.35)}
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px); background:rgba(12,17,22,.55); border-bottom:1px solid rgba(255,255,255,.06)}
+    nav{display:flex; align-items:center; justify-content:space-between; height:68px}
+    .nav-links{display:flex; gap:18px; align-items:center}
+    .nav-links a{opacity:.9}
+    .logo{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px}
+    .logo-mark{width:36px; height:36px; border-radius:10px; display:grid; place-items:center; 
+               background:conic-gradient(from 210deg at 50% 50%, var(--brand), #7dd3fc, #34d399, var(--brand)); color:#00131a; font-weight:900}
+    .hero{padding:64px 0 24px}
+    .hero .content{display:grid; grid-template-columns:1.2fr 1fr; align-items:center; gap:30px}
+    .hero h1{font-size:clamp(28px,4vw,44px); line-height:1.15; margin:14px 0}
+    .hero p{color:var(--muted); font-size:18px}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); 
+               border-radius:var(--radius); padding:20px; box-shadow:var(--shadow)}
+    .badge-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:16px}
+
+    .section{padding:56px 0}
+    .section h2{font-size:clamp(22px,3vw,32px); margin:0 0 16px}
+    .muted{color:var(--muted)}
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+    @media (max-width:980px){ .hero .content{grid-template-columns:1fr} .cards{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .cards{grid-template-columns:1fr} }
+    .card{background:var(--panel); border:1px solid rgba(255,255,255,.08); padding:20px; border-radius:var(--radius); box-shadow:var(--shadow); position:relative; overflow:hidden}
+    .card .icon{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.35); margin-bottom:10px}
+    .card h3{margin:6px 0 6px}
+    .card p{color:var(--muted)}
+
+    .list{display:grid; gap:10px}
+    .list li{display:flex; align-items:flex-start; gap:10px}
+    .check{width:22px; height:22px; border-radius:6px; background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.45); display:grid; place-items:center; flex:0 0 22px}
+
+    .pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+    .price{padding:24px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius)}
+    .price .amount{font-size:34px; font-weight:800}
+    .price .period{color:var(--muted); font-size:14px}
+    .price.highlight{outline:2px solid rgba(59,130,246,.45)}
+
+    .cta-band{margin-top:26px; border:1px dashed rgba(255,255,255,.2); padding:14px; border-radius:var(--radius); display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between}
+
+    .split{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+    @media (max-width:900px){ .split{grid-template-columns:1fr} }
+
+    form{display:grid; gap:12px}
+    input, textarea, select{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.18); color:var(--text); padding:12px 14px; border-radius:12px; outline:none}
+    input:focus, textarea:focus, select:focus{box-shadow:0 0 0 4px var(--ring)}
+    textarea{min-height:120px; resize:vertical}
+
+    footer{padding:36px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,.08)}
+    .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:22px}
+    @media (max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .footer-grid{grid-template-columns:1fr} }
+
+    .floating-cta{position:fixed; bottom:18px; right:18px; display:flex; gap:10px; z-index:60}
+    .fab{display:inline-grid; place-items:center; width:54px; height:54px; border-radius:16px; background:var(--brand); color:white; border:1px solid rgba(255,255,255,.2); box-shadow:var(--shadow)}
+    .fab.whatsapp{background:#25D366}
+    .map{width:100%; height:280px; border-radius:var(--radius); background:linear-gradient(180deg, rgba(59,130,246,.25), rgba(34,197,94,.2)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="100%" height="100%" fill="%230f1621"/><g stroke="%2322c55e" stroke-width="1" opacity="0.3">'+Array.from({length:40},(_,i)=>`<line x1="${i*20}" y1="0" x2="${i*20}" y2="400"/>`).join('')+Array.from({length:20},(_,i)=>`<line x1="0" y1="${i*20}" x2="800" y2="${i*20}"/>`).join('')+'</g><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%2393a4b3" font-family="Inter" font-size="18">Carte / Google Maps (intégration ici)</text></svg>'); background-size:cover; border:1px solid rgba(255,255,255,.12)}
+
+    /* micro animations */
+    .reveal{opacity:0; transform:translateY(12px); transition:all .6s ease}
+    .reveal.in{opacity:1; transform:none}
+  </style>
+</head>
+<body>
+  <!-- HEADER / NAV -->
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#accueil" aria-label="Aller à l'accueil">
+          <span class="logo-mark">KGS</span>
+          <span>KOITA <span style="opacity:.8">GARDIENNAGE</span> & <span style="opacity:.8">SURVEILLANCE</span></span>
+        </a>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#secteurs">Secteurs</a>
+          <a href="#contact" class="btn" style="padding:10px 14px">Demander un devis</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="accueil" class="hero">
+    <div class="container content">
+      <div>
+        <span class="chip">
+          <!-- bouclier icône -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 3v6c0 5-3.5 9-7 9s-7-4-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6"/></svg>
+          Sécurité 24/7 · Intervention rapide & Protection Maximale
+        </span>
+        <h1>Notre soucis - Votre sécurité.</h1>
+        <p>KOITA GARDIENNAGE ET SURVEILLANCE propose des solutions complètes de <strong>gardiennage humain</strong>, <strong>surveillance électronique</strong> et <strong>protection rapprochée</strong> protéger vos sites, biens et personnels.</p>
+        <div style="display:flex; gap:12px; margin-top:12px">
+          <a class="btn" href="#contact">Obtenir un devis gratuit</a>
+          <a class="btn secondary" href="#services">Voir nos services</a>
+        </div>
+        <div class="badge-row">
+          <span class="chip">Agents formés & agréés</span>
+          <span class="chip" style="background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.35)">Caméras de Surveillance</span>
+          <span class="chip" style="background:rgba(245,158,11,.12); border-color:rgba(245,158,11,.45)">Contrat flexible</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <div>
+            <div class="muted" style="font-size:12px">Temps moyen d'intervention</div>
+            <div style="font-size:34px; font-weight:800">&lt; 30 min</div>
+          </div>
+          <div>
+            <div class="muted" style="font-size:12px">Sites sécurisés</div>
+            <div style="font-size:34px; font-weight:800"> 50</div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="card" style="padding:12px">
+            <div class="icon" aria-hidden="true">🔒</div>
+            <div style="font-weight:700">Contrôle d'accès</div>
+            <div class="muted" style="font-size:13px">Filtrage, registres, badges visiteurs</div>
+          </div>
+          <div class="card" style="padding:12px">
+            <div class="icon" aria-hidden="true">📹</div>
+            <div style="font-weight:700">Alarme</div>
+            <div class="muted" style="font-size:13px">Installation & supervision 24/7</div>
+          </div>
+          <div class="card" style="padding:12px">
+            <div class="icon" aria-hidden="true">🚓</div>
+            <div style="font-weight:700">Interventions</div>
+            <div class="muted" style="font-size:13px">Rondes motorisées, levée de doute</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services de sécurité</h2>
+      <p class="muted">Des solutions adaptées à chaque site et à chaque risque identifié.</p>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="icon">🛡️</div>
+          <h3>Gardiennage & surveillance </h3>
+          <p>Agents statiques, rondiers, accueil & filtrage, consignes et rapports.</p>
+          <ul class="list">
+            <li><span class="check">✓</span>Présence 24/7 ou horaires adaptés</li>
+            <li><span class="check">✓</span>Pointage et traçabilité</li>
+            <li><span class="check">✓</span>Formation sûreté</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="icon">📡</div>
+          <h3>Surveillance & alarme</h3>
+          <p>Installation, maintenance et supervision, incendie.</p>
+          <ul class="list">
+            <li><span class="check">✓</span>Alertes en temps réel (SMS/App)</li>
+            <li><span class="check">✓</span>Intervention d'un agent si nécessaire</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="icon">🚧</div>
+          <h3>Sécurisation d'événements</h3>
+          <p>Dispositifs sur-mesure pour concerts, salons, cérémonies, chantiers et manifestations.</p>
+          <ul class="list">
+            <li><span class="check">✓</span>Analyse de risques & plan de sûreté</li>
+            <li><span class="check">✓</span>Coordination avec les forces publiques</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <div class="icon">🔥</div>
+          <h3>Prévention incendie</h3>
+          <p>Agents de sécurité, rondes de sécurité, vérifications préventives, procédures d'évacuation.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon">🏢</div>
+          <h3>Contrôle d'accès & accueil</h3>
+          <p>Badgeage, gestion des visiteurs, standard, consignation et gestion des clés.</p>
+        </div>
+        <div class="card reveal">
+          <div class="icon">🔍</div>
+          <h3>Conseil</h3>
+          <p>Évaluation des risques, plans de sécurité, procédures et accompagnement à la conformité.</p>
+        </div>
+      </div>
+
+      <div class="cta-band">
+        <div>
+          <strong>Besoin d'un dispositif rapide ?</strong>
+          <div class="muted">Nous mobilisons une équipe en moins de 48h selon disponibilité.</div>
+        </div>
+        <a class="btn" href="#contact">Parler à un conseiller</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTEURS -->
+  <section id="secteurs" class="section">
+    <div class="container">
+      <h2>Secteurs d'intervention</h2>
+      <div class="cards">
+        <div class="card reveal"><div class="icon">🏬</div><h3>Commerces & bureaux</h3><p>Prévention des pertes, accueil sécurisé, rondes d'ouverture/fermeture.</p></div>
+        <div class="card reveal"><div class="icon">🏗️</div><h3>Chantiers</h3><p>Surveillance nocturne, contrôle des accès, protection du matériel.</p></div>
+        <div class="card reveal"><div class="icon">🏠</div><h3>Résidentiel</h3><p>Gardien d'immeuble, patrouilles de voisinage, astreinte.</p></div>
+        <div class="card reveal"><div class="icon">🏥</div><h3>Santé & éducation</h3><p>Accueil, sûreté des personnes, gestion des situations sensibles.</p></div>
+        <div class="card reveal"><div class="icon">🏦</div><h3>Banques & institutions</h3><p>Protocoles renforcés, salles comptables, zones sensibles.</p></div>
+        <div class="card reveal"><div class="icon">🎤</div><h3>Événementiel</h3><p>Agents filtrage, palpation de sécurité.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATOUTS -->
+  <section id="atouts" class="section">
+    <div class="container">
+      <h2>Pourquoi nous choisir ?</h2>
+      <div class="split">
+        <div class="card reveal">
+          <h3>Qualité & traçabilité</h3>
+          <ul class="list">
+            <li><span class="check">✓</span>Supervision 24/7 et contrôles inopinés</li>
+            <li><span class="check">✓</span>Rapports digitaux détaillés</li>
+            <li><span class="check">✓</span>Managers de site dédiés</li>
+          </ul>
+        </div>
+        <div class="card reveal">
+          <h3>Conformité & assurance</h3>
+          <ul class="list">
+            <li><span class="check">✓</span>Assurance professionnelle</li>
+            <li><span class="check">✓</span>Vérification des antécédents des agents</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" class="section">
+    <div class="container">
+      <h2>Tarifs indicatifs</h2>
+      <p class="muted">Les prix varient selon le site, le niveau de risque et les horaires. Un devis sur-mesure est fourni après visite.</p>
+      <div class="pricing">
+        <div class="price card reveal">
+          <div class="muted">Gardiennage de jour</div>
+          <div class="amount">À partir de 80 000 FCFA</div>
+          <div class="period">par agent soit 06h - 18h</div>
+          <ul class="list" style="margin-top:10px">
+            <li><span class="check">✓</span>Tenue & équipements inclus</li>
+            <li><span class="check">✓</span>Compte-rendu</li>
+          </ul>
+          <div style="height:12px"></div>
+          <a class="btn" href="#contact">Demander un devis</a>
+        </div>
+        <div class="price card reveal highlight">
+          <div class="muted">Gardiennage de nuit</div>
+          <div class="amount">À partir de 80 000 FCFA</div>
+          <div class="period">par agent soit 18h - 06h</div>
+          <ul class="list" style="margin-top:10px">
+            <li><span class="check">✓</span>Rondes régulières</li>
+            <li><span class="check">✓</span>Levée de doute</li>
+          </ul>
+          <div style="height:12px"></div>
+          <a class="btn" href="#contact">Réserver une visite</a>
+        </div>
+        <div class="price card reveal">
+          <div class="muted">Caméra de Surveillance</div>
+          <div class="amount">Filiaire ou sans fil</div>
+          <ul class="list" style="margin-top:10px">
+            <li><span class="check">✓</span>Support 24/7</li>
+            <li><span class="check">✓</span>Intervention en option</li>
+          </ul>
+          <div style="height:12px"></div>
+          <a class="btn" href="#contact">Installer un système</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMOIGNAGES / EQUIPE -->
+  <section class="section">
+    <div class="container">
+      <div class="split">
+        <div class="card reveal">
+          <h3>Témoignages</h3>
+          <p>"Service professionnel et réactif. Nous avons réduit les incidents dès le premier mois." — <strong>DAKAR</strong></p>
+          <p>"Équipe ponctuelle et respectueuse, rapports clairs." — <strong>Chantier MTP</strong></p>
+        </div>
+        <div class="card reveal">
+          <h3>Direction</h3>
+          <p><strong>M. Alfousseyni KOITA </strong> — Président Directeur Général</p>
+          <p class="muted">+ 10 ans d'expérience dans la sûreté privée, management d'équipes et conduite d'audits de sécurité.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Contact & Devis -->
+<section id="contact" class="contact">
+  <h2>Contact & Devis</h2>
+  <p>Besoin d’un devis ou d’une information ? Remplissez le formulaire et contactez-nous directement sur WhatsApp.</p>
+
+  <form id="contact-form">
+    <input type="text" id="name" placeholder="Votre nom" required>
+    <input type="email" id="email" placeholder="Votre email" required>
+    <textarea id="message" placeholder="Votre message" required></textarea>
+    <button type="submit">Envoyer ma demande</button>
+  </form>
+</section>
+
+<script>
+  document.getElementById("contact-form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+
+    // Ton numéro WhatsApp avec indicatif international (exemple : +22312345678)
+    let phone = "+22378312995";
+
+    // Construire le message
+    let text = "Bonjour, je suis " + name + 
+               " (" + email + ").%0A%0A" + 
+               "Message : " + message;
+
+    // Ouvrir WhatsApp avec message pré-rempli
+    window.open("https://wa.me/" + phone + "?text=" + text, "_blank");
+  });
+</script>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="logo" style="margin-bottom:8px">
+          <span class="logo-mark">KGS</span>
+          <span>KOITA GARDIENNAGE & SURVEILLANCE</span>
+        </div>
+        <div class="muted">Protection des personnes et des biens · Gardiennage, télésurveillance, rondes et interventions.</div>
+      </div>
+      <div>
+        <strong>Liens</strong>
+        <div class="list" style="margin-top:10px">
+          <a href="#services">Services</a>
+          <a href="#secteurs">Secteurs</a>
+          <a href="#tarifs">Tarifs</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <strong>Légal</strong>
+        <div class="list" style="margin-top:10px">
+          <a href="#">Mentions légales</a>
+          <a href="#">Politique de confidentialité</a>
+        </div>
+      </div>
+      <div>
+        <strong>Disponibilité</strong>
+        <div class="list" style="margin-top:10px">
+          <span>7j/7 · 24h/24</span>
+          <span>Intervention région Bamako</span>
+        </div>
+      </div>
+    </div>
+    <div class="container" style="margin-top:22px; display:flex; justify-content:space-between; align-items:center; gap:10px">
+      <span class="muted">© <span id="year"></span> KOITA GARDIENNAGE ET SURVEILLANCE. Tous droits réservés.</span>
+      <a class="chip" href="#accueil" aria-label="Retour en haut">⬆️ Haut de page</a>
+    </div>
+  </footer>
+
+  <!-- FABS: CALL / WHATSAPP -->
+  <div class="floating-cta">
+    <a class="fab whatsapp" href="https://wa.me/22378312995" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+    <a class="fab" href="tel:+22378312995" aria-label="Appeler">📞</a>
+  </div>
+
+  <script>
+    // année dynamique
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // animation de révélation simple
+    const onScroll = () => {
+      document.querySelectorAll('.reveal').forEach(el=>{
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 80){ el.classList.add('in'); }
+      });
+    };
+    document.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('load', onScroll);
+
+    // scroll doux
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
+</body>
+</html>
